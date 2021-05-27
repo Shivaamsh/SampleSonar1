@@ -6,15 +6,10 @@ pipeline {
                 echo 'Hello world!' 
             }
         }
-		stage('Stage 2') {
-            steps {
-                echo 'How are you' 
-            }
-        }
-		stage('Stage 3') {
-            steps {
-                echo 'Hope you all are good' 
-            }
+		stage('SonarQube Analysis') {
+        def mvnHome =  tool name: 'maven3', type: 'maven'
+        withSonarQubeEnv('sonarqube123') { 
+          sh "${mvnHome}/bin/mvn sonar:sonar"
         }
     }
 }
